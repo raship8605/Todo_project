@@ -14,8 +14,8 @@
         }
 
         .task {
-            border: 1 px solid #ddd;
-            margin: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
             padding: 15px;
             border-radius: 5px;
         }
@@ -46,26 +46,26 @@
 </head>
 
 <body>
-    <h1>Mt To-Do List</h1>
-    <a href="/add/" class="add-button">+ Add New Task</a>
+    <h1>My To-Do List</h1>
+    <a href="/addtask/" class="add-button">+ Add New Task</a>
 
     <h2>Tasks</h2>
     {% for task in tasks %}
-    <div class="task {% if task.competed %} competed{%endif%}">
-        <h3>{{task.title}}</h3>
-        <p>{{task.description}}</p>
-        <small>Created: {{ task.created_date|date:"F, j, Y" }}</small> <br><br>
+    <div class="task {% if task.completed %}completed{% endif %}">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <small>Created: {{ task.created_date|date:"F j, Y" }}</small> <br><br>
         {% if not task.completed %}
-        <a href="{%url 'complete_task' task.id %}">
-            <button>Complete</button>
+        <a href="{% url 'complete_task' task.id %}">
+            <button>✓ Complete</button>
         </a>
         {% endif %}
-        <a href="{%url 'delete_task' task.id %}">
-            <button style="background-color:#f44336;color:white;">Delete</button>
+        <a href="{% url 'delete_task' task.id %}">
+            <button style="background-color:#f44336;color:white;">✗ Delete</button>
         </a>
     </div>
     {% empty %}
-    <p>No tasks yet, click "Add New Task" to create one !</p>
+    <p>No tasks yet. Click "Add New Task" to create one!</p>
     {% endfor %}
 
 </body>
