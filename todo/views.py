@@ -16,5 +16,10 @@ def add_task(request):
         return redirect('task_list')
     return render(request,'todo/add_task.html')
 
-# def complete_task
+def complete_task(request,task_id):
+    task=get_object_or_404(Task,id=task_id)
+    task.completed=True
+    task.completed_date=timezone.now()
+    task.save()
+    return redirect('task_list')
 
